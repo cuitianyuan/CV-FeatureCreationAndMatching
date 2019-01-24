@@ -67,12 +67,6 @@ def draw_keypoints(keypoints, r_map):
     r_map1 = cv2.normalize(r_map*255., alpha=0, beta=255, norm_type=cv2.NORM_MINMAX).astype(np.uint8)
     img1 = cv2.drawKeypoints(r_map1, keypoints, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
     return img1
-#plt.imshow((img1) )
-#plt.imshow((r_maps['trans_a']*255.).astype(np.uint8) )     
-#(keypoints, r_map) = (keypoints["trans_a"], r_maps["trans_a"])
-#
-# draw_keypoints(keypoints["trans_a"], r_maps["trans_a"])
-
 
 def draw_consensus_set(good_matches, image_pair, image_a_shape):
     """Draws the consensus set found using RANSAC.
@@ -112,21 +106,11 @@ def draw_consensus_set(good_matches, image_pair, image_a_shape):
         (x1,y1) = kp1[img1_idx].pt
         (x2,y2) = kp2[img2_idx].pt
 
-        # Draw a small circle at both co-ordinates
-        # colour red ???
         cv2.circle(out, (int(x1),int(y1)), 4, (0, 0, 255), 1)
         cv2.circle(out, (int(x2)+image_a_shape[1],int(y2)), 4, (0, 0, 255), 1)
-
-        # Draw a line in between the two points
-        # thickness = 1
-        # colour blue ??? 
         cv2.line(out, (int(x1),int(y1)), (int(x2)+image_a_shape[1],int(y2)), (255, 0, 0), 2)
 
     return out
-#plt.imshow(out),plt.show()
-#
-#ps5_arrays =
-#ps5_obj = Ps5Arrays()
 
 def part_1a(ps5_obj, save_imgs=True):
 
@@ -147,11 +131,9 @@ def part_1a(ps5_obj, save_imgs=True):
 
 def part_1b(ps5_obj, save_imgs=True):
 
-    # Todo: Define the kernel dimensions for each image
     kernel_dims = {"trans_a": (3, 3), "trans_b": (3, 3),
                    "sim_a": (3, 3), "sim_b": (3, 3)}
 
-    # Todo: Define alpha values for each image (floats)
     alpha = {"trans_a": 0.04, "trans_b": 0.04,
              "sim_a": 0.04, "sim_b": 0.04}
 
@@ -172,13 +154,9 @@ def part_1c(ps5_obj, save_imgs=True):
 
     part_1b(ps5_obj, False)  # sets up arrays object from last part
 
-    # Todo: Define the threshold values dimensions for each image (float)
-#    threshold = {"trans_a": 0.37, "trans_b": 0.29,
-#                 "sim_a": 0.36, "sim_b": 0.29}
     threshold = {"trans_a": 0.8, "trans_b": 0.4,
                  "sim_a": 0.9, "sim_b": 0.4}
 
-    # Todo: Define the radius values for each image (int)
     radius = {"trans_a": 5, "trans_b": 5,
               "sim_a": 5, "sim_b": 5}
 
@@ -198,9 +176,7 @@ def part_1c(ps5_obj, save_imgs=True):
         imwrite("ps5-1-c-2.png", trans_b_corners)
         imwrite("ps5-1-c-3.png", sim_a_corners)
         imwrite("ps5-1-c-4.png", sim_b_corners)
-#imwrite("ps5-1-c-1.png", image_RGB)
-
-#    cv2.imwrite(os.path.join(output_dir, 'ps2-5-b-1.png'), trans_a_corners)
+        
 def part_2a(ps5_obj, save_imgs=True):
 
     part_1c(ps5_obj, False)  # sets up arrays object from last part
@@ -244,10 +220,6 @@ def part_2b(ps5_obj, save_imgs=True):
 
         trans_a_b_out = ps5.draw_matches(images["trans_a"], images["trans_b"],
                                          k_pts["trans_a"], k_pts["trans_b"], matches["trans"])
-        
-#        trans_a_b_out = draw_matches(images["trans_a"], images["trans_b"],
-#                                         k_pts["trans_a"], k_pts["trans_b"], matches )
-#        plt.imshow(trans_a_b_out)
         
         imwrite("ps5-2-b-1.png", trans_a_b_out)
 
